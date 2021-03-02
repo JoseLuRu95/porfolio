@@ -1,11 +1,9 @@
 <template>
- <div class="banner px-1 px-md-8">
-   <PxTitle :srcImage="getImgUrl('banner.jpg')"/>
-   <PxKnowledge/>
-   <!-- <PxPhrase phrase="Lorem" srcImage="https://i.imgur.com/6vv4Pds.jpg"/> -->
-   <PxWorks :srcImage="getImgUrl('banner1.jpg')"/>
-   <!-- <PxPhrase phrase="Lorem" srcImage="https://i.imgur.com/6vv4Pds.jpg" /> -->
-   <PxProjects/>
+ <div class="banner">
+   <PxTitle id="title" :srcImage="getImgUrl('banner.jpg')" :goTo="goTo"/>
+   <PxKnowledge id="about-me" :goTo="goTo"/>
+   <PxWorks id="my-work" :srcImage="getImgUrl('banner1.jpg')" :goTo="goTo"/>
+   <PxProjects id="my-projects" :goTo="goTo"/>
  </div>
 </template>
 
@@ -14,7 +12,6 @@ import PxTitle from '@/components/PxTitle'
 import PxProjects from '@/components/PxProjects'
 import PxKnowledge from '@/components/PxKnowledge'
 import PxWorks from '@/components/PxWorks'
-// import PxPhrase from '@/components/PxPhrase'
 
 export default {
   name: 'home',
@@ -23,12 +20,14 @@ export default {
     PxProjects,
     PxKnowledge,
     PxWorks
-    // PxPhrase
   },
   methods: {
     getImgUrl (pet) {
       var images = require.context('../assets/', false, /^\.\/.*$/)
       return images(`./${pet}`)
+    },
+    goTo (section) {
+      this.$vuetify.goTo(`#${section}`)
     }
   }
 }
@@ -37,5 +36,6 @@ export default {
 <style scoped>
 .banner {
   height: 100vh;
+  padding: 0;
 }
 </style>

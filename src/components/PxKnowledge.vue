@@ -1,70 +1,100 @@
 <template>
-  <v-container fill-height fluid class="grey lighten-3">
-    <v-row dense class="d-flex justify-center no-gutters">
-      <v-col cols="12" lg="5">
-        <h1 class="display-3 my-12 text-center black--text">About me</h1>
-        <p class="px-12 my-12 text-center headline">
-          FrontEnd Programmer Jr. with experience designing and landing pages for companies. Basically using API and CRUD, developing projects following SCRUM schema.
-        </p>
-        <v-row class="d-flex justify-center align-center my-12">
-          <v-avatar size="150" color="indigo">
-            <v-img :src="getImgUrl('photo.jpg')" alt="John"></v-img>
-          </v-avatar>
-        </v-row>
-      </v-col>
-      <v-col cols="1" class="d-flex justify-center">
-      <div class="divider"></div>
-      </v-col>
-      <v-col  cols="12" lg="5" class="d-flex justify-center align-center">
-        <v-card>
-          <v-card-text>
-            <v-row>
-              <v-col v-for="(knowledge, index) in knowledges" :key="index" cols="4">
-                <v-list two-line subheader>
-                  <v-subheader inset>{{knowledge.title}}</v-subheader>
-                  <v-list-item v-for="item in knowledge.list" :key="item.name">
-                    <v-list-item-avatar class="elevation-4" size="40">
-                      <v-icon size="30  " :color="item.color" v-text="item.icon"></v-icon>
-                    </v-list-item-avatar>
-                    <v-list-item-content>
-                      <v-rating dense class="ml-4" readonly size="20" :value="item.ranking">
-                      </v-rating>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-responsive :aspect-ratio="16/7.5">
+    <v-container fill-height fluid class="grey lighten-3 pt-0 mt-0">
+      <v-row dense class="d-flex justify-center no-gutters">
+        <v-col cols="12" lg="5">
+          <h1 class="display-3 my-12 text-center black--text">About me</h1>
+          <p class="px-12 my-12 text-center headline">
+            Proficient Front-End developer with almost 2 years of experience building
+            and maintaining responsive websites. Aspiring to still working as developer
+            adjusting my skills to cutting-edge development technologies, and
+            simultaneously extending my abilities to other areas such as Back-End to
+            one day become a Full Stack developer.
+          </p>
+          <v-row class="d-flex justify-center align-center my-12">
+            <v-avatar size="150" color="indigo">
+              <v-img :src="getImgUrl('photo.jpg')" alt="John"></v-img>
+            </v-avatar>
+          </v-row>
+        </v-col>
+
+        <v-col cols="1" class="d-flex justify-center">
+          <div class="divider"></div>
+        </v-col>
+
+        <v-col  cols="12" lg="5" class="d-flex justify-center align-cente">
+          <v-card class="fill-height" min-width="600px">
+            <v-card-title>
+              <p class="display-2">
+                My skills
+              </p>
+            </v-card-title>
+            <v-card-text>
+              <v-list subheader v-for="(skill, index) in skills" :key="index">
+                <v-subheader v-if="skill.title" >{{skill.title}}</v-subheader>
+                <v-list-item>
+                  <v-list-item-content>
+                    <v-row >
+                      <v-col cols="4" v-for="item in skill.list" :key="item.name" class="d-flex justify-center align-center">
+                        <v-tooltip top>
+                          <template v-slot:activator="{ on }">
+                            <v-progress-circular size="120" width="8" :value="item.value" color="blue-grey lighten-1" v-on="on">
+                              <v-icon v-if="item.icon" size="50" :color="item.color" v-text="item.icon"></v-icon>
+                              <v-avatar v-else size="50" color="white">
+                              <v-img
+                                :src="getImgUrl(item.img)"
+                                contain
+                                ></v-img>
+                              </v-avatar>
+                              <p class="font-weight-medium">
+                                {{item.value}}%
+                              </p>
+                            </v-progress-circular>
+                          </template>
+                          <span>{{item.name}}</span>
+                        </v-tooltip>
+                      </v-col>
+                    </v-row>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-btn
+      fab
+      outlined
+      color="black"
+      class="button-float"
+      @click="goTo('my-work')">
+    <v-icon class="black--text">mdi-chevron-double-down</v-icon>
+    </v-btn>
+  </v-responsive>
 </template>
 
 <script>
 export default {
-  name: 'PxKnowledge',
+  name: 'Pxskill',
+  props: {
+    goTo: {
+      type: Function
+    }
+  },
   data () {
     return {
-      knowledges: [
-        { 'title': 'Web Development',
+      skills: [
+        { 'title': '',
           'list': [
-            { 'name': 'HTML', 'icon': 'mdi-language-html5', 'color': 'red', 'ranking': 4 },
-            { 'name': 'CSS', 'icon': 'mdi-language-css3', 'color': 'blue', 'ranking': 3 },
-            { 'name': 'JavaScript', 'icon': 'mdi-language-javascript', 'color': 'yellow', 'ranking': 5 }
-          ]
-        },
-        { 'title': 'Frontend',
-          'list': [
-            { 'name': 'Vue', 'icon': 'mdi-vuejs', 'color': 'green', 'ranking': 5 },
-            { 'name': 'Vuetify', 'icon': 'mdi-vuetify', 'color': 'blue', 'ranking': 5 },
-            { 'name': 'Angular', 'icon': 'mdi-angular', 'color': 'red', 'ranking': 3 }
-          ] },
-        { 'title': 'Backend',
-          'list': [
-            { 'name': 'Node.js', 'icon': 'mdi-nodejs', 'color': 'green', 'ranking': 2 },
-            { 'name': 'Python', 'icon': 'mdi-language-python', 'color': 'yellow', 'ranking': 2 },
-            { 'name': 'MongoDB', 'icon': 'mdi-database', 'color': 'green', 'ranking': 2 }
+            { 'name': 'HTML', 'icon': 'mdi-language-html5', 'color': 'red', 'value': 60 },
+            { 'name': 'CSS', 'icon': 'mdi-language-css3', 'color': 'blue', 'value': 60 },
+            { 'name': 'JavaScript', 'icon': 'mdi-language-javascript', 'color': 'yellow', 'value': 60 },
+            { 'name': 'Vue', 'icon': 'mdi-vuejs', 'color': 'green', 'value': 80 },
+            { 'name': 'Vuetify', 'icon': 'mdi-vuetify', 'color': 'blue', 'value': 80 },
+            { 'name': 'Figma', 'icon': null, 'img': 'figma.png', 'color': 'black', 'value': 60 },
+            { 'name': 'Jest', 'icon': null, 'img': 'jest.png', 'color': 'pink darken-4', 'value': 40 }
           ] }
       ]
 
@@ -84,5 +114,11 @@ export default {
   height: 100%;
   width: 1px;
   background-color: black;
+}
+.button-float {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 </style>
