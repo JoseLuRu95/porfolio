@@ -1,5 +1,5 @@
 <template>
-  <v-responsive>
+  <v-responsive class="container-title">
     <v-parallax class="title-style" v-resize="onResize" src="@/assets/banner.jpg" :height="windowSize">
       <v-row align="center" justify="center" class="pa-0">
         <v-col class="text-center pa-0" cols="12">
@@ -52,5 +52,9 @@ export default {
 }
 .title-style {
   width: 100% !important;
+}
+.container-title{
+  min-height: 94vh !important;
+  width: 100vw !important;
 }
 </style>

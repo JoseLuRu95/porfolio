@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <v-container fluid pa-0>
+    <v-main>
       <v-fade-transition mode="out-in">
         <router-view/>
       </v-fade-transition>
-    </v-container>
+    </v-main>
   </v-app>
 </template>
 

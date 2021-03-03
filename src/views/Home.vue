@@ -36,6 +36,24 @@ export default {
 <style scoped>
 .banner {
   height: 100vh;
-  padding: 0;
+}
+.container-section{
+  min-height: 94vh !important;
+  width: 100%;
+}
+.button-float {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+@media screen and (max-width: 1264px) {
+  .button-float {
+    position: absolute;
+    top: 10px;
+    z-index: 0;
+    left: 90%;
+    transform: translateX(-50%);
+  }
 }
 </style>

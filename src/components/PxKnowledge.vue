@@ -1,31 +1,31 @@
 <template>
-  <v-responsive :aspect-ratio="16/7.5">
+  <v-responsive class="container-section">
     <v-container fill-height fluid class="grey lighten-3 pt-0 mt-0">
-      <v-row dense class="d-flex justify-center no-gutters">
+      <v-row dense class="d-flex justify-center align-center" style="height: 100%">
         <v-col cols="12" lg="5">
-          <h1 class="display-3 my-12 text-center black--text">About me</h1>
-          <p class="px-12 my-12 text-center headline">
+          <p class="my-12 text-center black--text" :class="shrink ? 'display-1' : 'display-3'">About me</p>
+          <p class="px-12 my-12 text-center" :class="shrink ? 'body-1' : 'headline'">
             Proficient Front-End developer with almost 2 years of experience building
             and maintaining responsive websites. Aspiring to still working as developer
             adjusting my skills to cutting-edge development technologies, and
             simultaneously extending my abilities to other areas such as Back-End to
             one day become a Full Stack developer.
           </p>
-          <v-row class="d-flex justify-center align-center my-12">
+          <v-row class="d-none d-lg-flex justify-center align-center my-12">
             <v-avatar size="150" color="indigo">
               <v-img :src="getImgUrl('photo.jpg')" alt="John"></v-img>
             </v-avatar>
           </v-row>
         </v-col>
 
-        <v-col cols="1" class="d-flex justify-center">
+        <v-col cols="1" class="d-none d-lg-flex justify-center align-center"  style="height: 100%">
           <div class="divider"></div>
         </v-col>
 
-        <v-col  cols="12" lg="5" class="d-flex justify-center align-cente">
-          <v-card class="fill-height" min-width="600px">
+        <v-col  cols="12" lg="5" class="d-flex justify-center align-center">
+          <v-card max-width="600px">
             <v-card-title>
-              <p class="display-2">
+              <p :class="shrink ? 'display-1' : 'display-3'">
                 My skills
               </p>
             </v-card-title>
@@ -38,9 +38,9 @@
                       <v-col cols="4" v-for="item in skill.list" :key="item.name" class="d-flex justify-center align-center">
                         <v-tooltip top>
                           <template v-slot:activator="{ on }">
-                            <v-progress-circular size="120" width="8" :value="item.value" color="blue-grey lighten-1" v-on="on">
-                              <v-icon v-if="item.icon" size="50" :color="item.color" v-text="item.icon"></v-icon>
-                              <v-avatar v-else size="50" color="white">
+                            <v-progress-circular :size="shrink ? 80 : 120" width="8" :value="item.value" color="blue-grey lighten-1" v-on="on">
+                              <v-icon v-if="item.icon" :size="shrink ? 20 : 50" :color="item.color" v-text="item.icon"></v-icon>
+                              <v-avatar v-else :size="shrink ? 20 : 50" color="white">
                               <v-img
                                 :src="getImgUrl(item.img)"
                                 contain
@@ -65,6 +65,7 @@
     </v-container>
 
     <v-btn
+      :small="shrink"
       fab
       outlined
       color="black"
@@ -97,7 +98,14 @@ export default {
             { 'name': 'Jest', 'icon': null, 'img': 'jest.png', 'color': 'pink darken-4', 'value': 40 }
           ] }
       ]
-
+    }
+  },
+  computed: {
+    viewSize () {
+      return this.$vuetify.breakpoint
+    },
+    shrink () {
+      return this.viewSize.sm || this.viewSize.xs || this.viewSize.md
     }
   },
   methods: {
@@ -111,7 +119,7 @@ export default {
 
 <style scoped>
 .divider {
-  height: 100%;
+  height: 60%;
   width: 1px;
   background-color: black;
 }
@@ -120,5 +128,14 @@ export default {
   top: 40px;
   left: 50%;
   transform: translateX(-50%);
+}
+@media screen and (max-width: 1264px) {
+  .button-float {
+    position: absolute;
+    top: 10px;
+    z-index: 0;
+    left: 90%;
+    transform: translateX(-50%);
+  }
 }
 </style>
